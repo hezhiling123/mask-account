@@ -1,6 +1,6 @@
 package cn.mask.account.common.config;
 
-import cn.mask.mask.constant.SsoConstants;
+import cn.mask.account.common.constants.SsoConstants;
 import cn.mask.account.common.security.MySessionListener;
 import cn.mask.account.common.security.ShiroAuthFilter;
 import cn.mask.account.common.security.ShiroRealm;

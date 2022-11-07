@@ -1,12 +1,12 @@
 package cn.mask.account.service.authorize;
 
+import cn.mask.account.common.constants.SsoConstants;
+import cn.mask.account.common.utils.ShiroCacheUtil;
 import cn.mask.account.service.BaseService;
-import cn.mask.account.service.authorize.AuthorizeService;
-import cn.mask.core.exception.BusinessException;
-import cn.mask.core.utils.response.HttpResponseBody;
-import cn.mask.core.utils.response.ResponseCodeConstant;
-import cn.mask.mask.constant.SsoConstants;
-import cn.mask.util.ShiroCacheUtil;
+import cn.mask.mask.user.api.authorize.service.AuthorizeService;
+import cn.mask.core.framework.utils.response.HttpResponseBody;
+import cn.mask.core.framework.utils.response.ResponseCodeConstant;
+import cn.mask.core.framework.web.exception.BusinessException;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
 import org.apache.oltu.oauth2.as.request.OAuthAuthzRequest;

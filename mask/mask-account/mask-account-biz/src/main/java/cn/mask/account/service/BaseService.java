@@ -1,8 +1,7 @@
 package cn.mask.account.service;
 
-import cn.mask.core.utils.CommonConstant;
-import cn.mask.mask.model.user.po.UserPO;
-import cn.mask.mask.user.login.dto.UserInfo;
+import cn.mask.core.framework.utils.CommonConstant;
+import cn.mask.mask.user.api.login.dto.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;

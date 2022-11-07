@@ -1,0 +1,9 @@
+server:
+  port: 2234
+auth:
+  server:
+    base:
+      url: 127.0.0.1:2233
+jwt:
+  signing:
+    key:1234567

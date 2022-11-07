@@ -1,12 +1,12 @@
 package cn.mask.account.service.accessToken;
 
+import cn.mask.account.common.constants.RedisKey;
+import cn.mask.account.common.utils.ShiroCacheUtil;
 import cn.mask.account.service.BaseService;
-import cn.mask.core.utils.response.HttpResponseBody;
-import cn.mask.mask.constant.RedisKey;
-import cn.mask.account.service.user.UserService;
-import cn.mask.util.ShiroCacheUtil;
-import mask.mask.user.authorize.service.AuthorizeService;
-import mask.mask.user.login.dto.UserInfo;
+import cn.mask.core.framework.web.WrapperResponse;
+import cn.mask.mask.user.api.authorize.service.AuthorizeService;
+import cn.mask.mask.user.api.login.dto.UserInfo;
+import cn.mask.mask.user.api.user.service.UserService;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
@@ -44,7 +44,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 @RequestMapping("/api")
-public class AccessTokenServiceImpl extends BaseService {
+public class AccessTokenServiceImpl extends BaseService implements AccessTokenService {
 
     @Autowired
     private AuthorizeService authorizeService;
@@ -55,18 +55,9 @@ public class AccessTokenServiceImpl extends BaseService {
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
-    /**
-     * 授权码模式生成AccessToken
-     *
-     * @param request
-     * @return
-     * @throws Exception
-     * @author Jack
-     * @date 2020/9/9
-     * @version
-     */
+    @Override
     @RequestMapping("/accessToken")
-    public HttpEntity token(HttpServletRequest request) throws OAuthSystemException {
+    public HttpEntity<Object> token(HttpServletRequest request) throws OAuthSystemException {
         try {
             // 构建Oauth请求
             OAuthTokenRequest oAuthTokenRequest = new OAuthTokenRequest(request);
@@ -125,18 +116,9 @@ public class AccessTokenServiceImpl extends BaseService {
         }
     }
 
-    /**
-     * 根据AccessToken获取用户信息
-     *
-     * @param request
-     * @return
-     * @throws Exception
-     * @author Jack
-     * @date 2020/9/9
-     * @version
-     */
+    @Override
     @RequestMapping("/userInfo")
-    public HttpEntity userInfo(HttpServletRequest request) throws OAuthSystemException {
+    public ResponseEntity<Object> userInfo(HttpServletRequest request) throws OAuthSystemException {
         try {
 
             //构建OAuth资源请求
@@ -155,11 +137,11 @@ public class AccessTokenServiceImpl extends BaseService {
 
                 HttpHeaders headers = new HttpHeaders();
                 headers.add(OAuth.HeaderType.WWW_AUTHENTICATE, oauthResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE));
-                return new ResponseEntity(headers, HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(headers, HttpStatus.UNAUTHORIZED);
             }
             //返回用户名
             String username = shiroCacheUtil.getUsernameByAccessToken(accessToken);
-            UserInfo user = userService.getUserInfoById(username);
+            UserInfo user = userService.getUserByUserId(username);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (OAuthProblemException e) {
             //检查是否设置了错误码
@@ -172,7 +154,7 @@ public class AccessTokenServiceImpl extends BaseService {
 
                 HttpHeaders headers = new HttpHeaders();
                 headers.add(OAuth.HeaderType.WWW_AUTHENTICATE, oauthResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE));
-                return new ResponseEntity(headers, HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(headers, HttpStatus.UNAUTHORIZED);
             }
 
             OAuthResponse oauthResponse = OAuthRSResponse
@@ -185,24 +167,15 @@ public class AccessTokenServiceImpl extends BaseService {
 
             HttpHeaders headers = new HttpHeaders();
             headers.add(OAuth.HeaderType.WWW_AUTHENTICATE, oauthResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE));
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    /**
-     * 用户登出
-     *
-     * @param request
-     * @return
-     * @throws Exception
-     * @author Jack
-     * @date 2020/9/9
-     * @version
-     */
+    @Override
     @RequestMapping("logout")
-    public Object logout(HttpServletRequest request) {
+    public HttpEntity<Object> logout(HttpServletRequest request) {
         shiroCacheUtil.removeUser(this.getSessionUser().getId());
         SecurityUtils.getSubject().logout();
-        return HttpResponseBody.successResponse("ok");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

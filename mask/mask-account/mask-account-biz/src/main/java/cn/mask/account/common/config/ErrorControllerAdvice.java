@@ -1,7 +1,7 @@
 package cn.mask.account.common.config;
 
-import cn.mask.core.exception.BusinessException;
-import cn.mask.core.utils.response.HttpResponseBody;
+import cn.mask.core.framework.utils.response.HttpResponseBody;
+import cn.mask.core.framework.web.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;

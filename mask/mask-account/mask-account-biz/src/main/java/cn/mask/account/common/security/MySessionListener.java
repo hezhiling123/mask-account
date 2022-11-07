@@ -1,9 +1,8 @@
 package cn.mask.account.common.security;
 
-import cn.mask.core.utils.HttpUtil;
-import cn.mask.mask.constant.RedisKey;
-import cn.mask.mask.model.system.Oauth2Client;
-import cn.mask.sys.service.auth.AuthorizeService;
+import cn.mask.account.common.constants.RedisKey;
+import cn.mask.mask.user.api.authorize.dto.Oauth2Client;
+import cn.mask.mask.user.api.authorize.service.AuthorizeService;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
 import org.slf4j.Logger;
@@ -60,7 +59,7 @@ public class MySessionListener implements SessionListener {
                 String clientId = (String) redisTemplate.opsForHash().get(RedisKey.CLIENT_SESSIONS, clientSessionId);
                 //发通知给子系统根据sessionId来注销
                 logger.info("通知子系统 [{}] 注销用户 [{}]， URL [{}]", clientId, clientSessionId, clientMap.get(clientId).getLogoutUrl());
-                HttpUtil.post(clientMap.get(clientId).getLogoutUrl() + clientSessionId, null);
+//                HttpUtil.post(clientMap.get(clientId).getLogoutUrl() + clientSessionId, null);
             }
         }
         //删除缓存的子系统session信息

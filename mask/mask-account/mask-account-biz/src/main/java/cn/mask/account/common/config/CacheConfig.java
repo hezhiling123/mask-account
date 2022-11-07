@@ -1,6 +1,6 @@
 package cn.mask.account.common.config;
 
-import cn.mask.util.ShiroCacheUtil;
+import cn.mask.account.common.utils.ShiroCacheUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

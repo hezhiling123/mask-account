@@ -1,15 +1,14 @@
 package cn.mask.account.service.system;
 
 import cn.mask.account.common.config.Config;
+import cn.mask.account.common.utils.ShiroCacheUtil;
 import cn.mask.account.service.BaseService;
-import cn.mask.core.utils.response.HttpResponseBody;
-import cn.mask.util.ShiroCacheUtil;
+import cn.mask.core.framework.utils.response.HttpResponseBody;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;

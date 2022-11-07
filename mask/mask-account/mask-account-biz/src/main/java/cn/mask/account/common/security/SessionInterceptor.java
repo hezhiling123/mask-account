@@ -1,7 +1,6 @@
 package cn.mask.account.common.security;
 
-import cn.mask.mask.model.user.po.UserPO;
-import cn.mask.sys.service.auth.LoginService;
+import cn.mask.mask.user.api.login.service.LoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -30,11 +29,11 @@ public class SessionInterceptor implements HandlerInterceptor {
         if (!currentUser.isAuthenticated() && currentUser.isRemembered()) {
             logger.debug("-{}--isRemembered--", currentUser.getPrincipals());
             //如果之前是用的微信登录，那么这个principals将会是userId,见cn/toroot/controller/WechatController.java:171
-            UserPO user = loginService.login(currentUser.getPrincipals().toString());
-            //对密码进行加密后验证
-            UsernamePasswordToken token = new UsernamePasswordToken(user.getId().toString(), user.getPassword(), currentUser.isRemembered());
-            //把当前用户放入session
-            currentUser.login(token);
+//            UserPO user = loginService.login(currentUser.getPrincipals().toString());
+//            //对密码进行加密后验证
+//            UsernamePasswordToken token = new UsernamePasswordToken(user.getId().toString(), user.getPassword(), currentUser.isRemembered());
+//            //把当前用户放入session
+//            currentUser.login(token);
 //            ShiroRealm.setResource(iLoginService, session,user);
             //设置会话的过期时间--ms,默认是30分钟，设置负数表示永不过期
         }

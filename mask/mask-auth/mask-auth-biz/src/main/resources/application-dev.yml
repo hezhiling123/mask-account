@@ -1,0 +1,92 @@
+mybatis:
+  mapper-locations: classpath*:mapping/*.xml
+  config-location: classpath:SqlMapConfig.xml
+spring:
+  application:
+    name: mask-auth-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 42.192.182.126:8848
+        namespace: 86381884-86d1-481e-8c08-c92d6ef1e80e
+        group: dev
+  redis:
+    host: 42.192.182.126
+    port: 6379
+    password: 1659868245
+  datasource:
+    url: jdbc:mysql://47.95.192.141:3306/auth?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: Mask@2022
+    driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      #监控页
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin
+        reset-enable: false
+      web-stat-filter:
+        enabled: true
+        exclusions: '*.js, *.gif, *.png, *.css, *.ico, /druid/*'
+        url-pattern: /*
+      aop-patterns: cn.mask.mask.auth
+      filter:
+        log4j:
+          enabled: true
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 1000
+        wall:
+          enabled: true
+          config:
+            drop-table-allow: false
+        slf4j:
+          enabled: true
+
+dubbo:
+  scan:
+    base-packages: cn.mask.mask.auth.biz
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: spring-cloud://42.192.182.126
+csp:
+  sentinel:
+    dashboard:
+      server: 42.192.182.126:8858
+management:
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+wx:
+  app-id: wxd2bf68f18c88352a
+  app-secret: 6121b5aeca6adb9df720f8618bfd0d5b
+  redirect-uri: https://mask.cn
+  mchId: xxxxxxxx
+  key: xxxxxxxx
+  certPath:
+  notify_url: http://thesunbig.imwork.net/wx/notify
+  wap_url: https://pay.qq.com
+  spbill_create_ip: 127.0.0.1
+
+logging:
+  level:
+    root: info
+    cn:
+      enjoy:
+        users:
+          dao: debug
+    org:
+      springframework:
+        cloud:
+          sleuth: debug

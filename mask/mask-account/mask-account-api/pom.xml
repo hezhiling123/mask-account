@@ -30,7 +30,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.mask</groupId>
+            <groupId>cn.mask.mask.common</groupId>
             <artifactId>mask-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

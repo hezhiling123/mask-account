@@ -2,7 +2,7 @@ package cn.mask.account.service.common;
 
 import cn.mask.account.common.fs.FastDFSClientService;
 import cn.mask.account.service.BaseService;
-import cn.mask.core.utils.response.HttpResponseBody;
+import cn.mask.core.framework.utils.response.HttpResponseBody;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -21,7 +21,7 @@ import java.util.Map;
  * @date 2020/9/9
  */
 @RestController
-public class CommonServiceImpl extends BaseService {
+public class CommonServiceImpl extends BaseService implements CommonService {
 
     @Resource
     private FastDFSClientService dfsClient;
@@ -36,6 +36,7 @@ public class CommonServiceImpl extends BaseService {
      * @date 2020/9/9
      * @version
      */
+    @Override
     @RequestMapping(value = "/api/upload", method = RequestMethod.POST)
     public HttpResponseBody<Map<String, Object>> upload(@RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
         String imgUrl = dfsClient.uploadFile(file);
@@ -45,15 +46,13 @@ public class CommonServiceImpl extends BaseService {
     }
 
     /**
-     * 图片批量上传
+     * 批量上传文件
      *
-     * @param request
+     * @param request   request
      * @return
      * @throws Exception
-     * @author Jack
-     * @date 2020/9/9
-     * @version
      */
+    @Override
     @RequestMapping(value = "/api/batchUpload", method = RequestMethod.POST)
     @ResponseBody
     public HttpResponseBody<List<Map<String, String>>> handleFileUpload(HttpServletRequest request) throws Exception {
@@ -78,11 +77,13 @@ public class CommonServiceImpl extends BaseService {
         return HttpResponseBody.successResponse("上传成功", urls);
     }
 
+    @Override
     @RequestMapping(value = "/404.do", method = {RequestMethod.GET, RequestMethod.POST})
     public Object error404() {
         return "大写的404";
     }
 
+    @Override
     @RequestMapping(value = "/500.do", method = {RequestMethod.GET, RequestMethod.POST})
     public Object error500() {
         return "大写的500";

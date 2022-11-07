@@ -1,6 +1,5 @@
 package cn.mask.account.service.login;
 
-import cn.mask.core.utils.response.HttpResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;

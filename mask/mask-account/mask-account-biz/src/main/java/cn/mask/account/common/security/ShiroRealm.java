@@ -1,11 +1,11 @@
 package cn.mask.account.common.security;
 
 
-import cn.mask.core.exception.BusinessException;
-import cn.mask.core.utils.CommonConstant;
-import cn.mask.core.utils.response.ResponseCodeConstant;
-import cn.mask.mask.model.user.dto.UserInfo;
-import cn.mask.sys.service.auth.LoginService;
+import cn.mask.account.common.constants.CommonConstant;
+import cn.mask.core.framework.utils.response.ResponseCodeConstant;
+import cn.mask.core.framework.web.exception.BusinessException;
+import cn.mask.mask.user.api.login.dto.UserInfo;
+import cn.mask.mask.user.api.login.service.LoginService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -17,11 +17,13 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
  * @author mask
  */
+@Component
 public class ShiroRealm extends AuthorizingRealm {
     private final static Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
 
@@ -88,9 +90,9 @@ public class ShiroRealm extends AuthorizingRealm {
             throw new BusinessException(ResponseCodeConstant.USER_LOGIN_FAIL, "密码不能为空");
         }
         try {
-            UserInfo user = loginService.loginByToken(JSONObject.toJSONString(authcToken));
-            Session session = SecurityUtils.getSubject().getSession();
-            setResource(loginService, session, user);
+//            UserInfo user = loginService.loginByToken(JSONObject.toJSONString(authcToken));
+//            Session session = SecurityUtils.getSubject().getSession();
+//            setResource(loginService, session, user);
             logger.info("登录认证成功*******");
             return new SimpleAuthenticationInfo(token.getPrincipal(), token.getPassword(), token.getUsername());
         } catch (Exception e) {

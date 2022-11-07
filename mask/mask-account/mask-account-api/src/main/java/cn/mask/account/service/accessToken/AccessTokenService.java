@@ -6,7 +6,14 @@ import org.springframework.http.HttpEntity;
 import javax.servlet.http.HttpServletRequest;
 
 public interface AccessTokenService {
-    HttpEntity token(HttpServletRequest request) throws OAuthSystemException;
-    HttpEntity userInfo(HttpServletRequest request) throws OAuthSystemException;
-    Object logout(HttpServletRequest request);
+    /**
+     * 获取token
+     *
+     * @param request   request
+     * @return  t
+     * @throws OAuthSystemException
+     */
+    HttpEntity<Object>  token(HttpServletRequest request) throws OAuthSystemException;
+    HttpEntity<Object>  userInfo(HttpServletRequest request) throws OAuthSystemException;
+    HttpEntity<Object>  logout(HttpServletRequest request);
 }

@@ -1,7 +1,8 @@
 package cn.mask.account.service.user;
 
-import cn.mask.core.utils.response.HttpResponseBody;
-import cn.mask.mask.user.login.dto.UserInfo;
+
+import cn.mask.core.framework.utils.response.HttpResponseBody;
+import cn.mask.mask.user.api.login.dto.UserInfo;
 
 public interface UserService {
     HttpResponseBody addUser(UserInfo user);

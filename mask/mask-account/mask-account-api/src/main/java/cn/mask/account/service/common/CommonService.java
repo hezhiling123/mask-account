@@ -1,6 +1,5 @@
 package cn.mask.account.service.common;
 
-import cn.mask.core.utils.response.HttpResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 

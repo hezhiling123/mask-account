@@ -1,9 +1,10 @@
 package cn.mask.mask.user.api.login.service;
 
-import cn.mask.core.framework.web.WrapperResponse;
-import cn.mask.core.framework.web.exception.MaskException;
-import cn.mask.mask.user.api.login.dto.UserInfo;
-import cn.mask.mask.user.api.login.dto.WxLoginInfo;
+import cn.mask.mask.common.core.framework.web.WrapperResponse;
+import cn.mask.mask.common.core.framework.web.exception.MaskException;
+import cn.mask.mask.user.api.login.dto.WeiXinUserInfo;
+import cn.mask.mask.user.api.login.dto.WeiXinLoginInfo;
+import cn.mask.mask.user.api.user.dto.UserDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2022-04-01 15:01:52
  */
 public interface LoginService {
-    WrapperResponse<Object> loginByWeiXin(@RequestBody WxLoginInfo wxLoginInfo);
-    WrapperResponse<UserInfo> login(String tokenStr);
-    WrapperResponse<UserInfo> loginByToken(String tokenStr) throws MaskException;
+    WrapperResponse<WeiXinUserInfo> login(String tokenStr);
+    WrapperResponse<WeiXinUserInfo> loginByToken(String tokenStr) throws MaskException;
 }

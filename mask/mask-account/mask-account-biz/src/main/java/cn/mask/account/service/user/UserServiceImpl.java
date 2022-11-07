@@ -1,13 +1,10 @@
 package cn.mask.account.service.user;
 
-import cn.mask.core.utils.response.HttpResponseBody;
-import cn.mask.mask.user.login.dto.UserInfo;
-import cn.mask.account.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.mask.account.service.BaseService;
+import cn.mask.core.framework.utils.response.HttpResponseBody;
+import cn.mask.mask.user.api.login.dto.UserInfo;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -17,11 +14,9 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/user/")
-public class UserServiceImpl implements UserService extends BaseService {
+public class UserServiceImpl extends BaseService implements UserService  {
 
 
-    @Autowired
-    private UserService userService;
 
 
     @Override
@@ -35,22 +30,16 @@ public class UserServiceImpl implements UserService extends BaseService {
      * @param userId 用户id
      * @return body
      */
+    @Override
     @RequestMapping(value = "getUserById", method = {RequestMethod.GET, RequestMethod.POST})
     public HttpResponseBody<UserInfo> getUserById(String userId) {
-        UserInfo user = userService.getUserInfoById(userId);
-        return HttpResponseBody.successResponse("查询成功", user);
+        return null;
     }
 
+    @Override
     @GetMapping("getUserInfo")
     public HttpResponseBody getUserInfo() {
-        String sessionUserId = getSessionUserId();
-        UserInfo userInfo = userService.getUserInfoById(sessionUserId);
-        if (userInfo == null) {
-            return HttpResponseBody.failResponse("请重新登录");
-        }
-        Map<String, Object> result = new HashMap<>();
-        result.put("userInfo", userInfo);
-        return HttpResponseBody.successResponse("查询成功", result);
+        return null;
     }
 
 }
