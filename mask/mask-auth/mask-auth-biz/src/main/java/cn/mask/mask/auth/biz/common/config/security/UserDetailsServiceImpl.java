@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        if (StringUtils.isEmpty(userId)) {
+            throw new MaskException(ResultCode.NULL_REQUIRED_PARAMETER, "拉取用户授权时，用户id必填");
+        }
         QUserDTO qUserDTO = new QUserDTO();
         qUserDTO.setUserId(userId);
         WrapperResponse<UserBaseInfoDTO> userByCondition = userService.queryUserByCondition(qUserDTO);

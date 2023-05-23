@@ -1,0 +1,27 @@
+server:
+  port: 8186
+  servlet:
+    context-path: /mask-product
+  tomcat:
+    max-threads: 1000
+    accept-count: 1000
+    max-connections: 2000
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: @parent.artifactId@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:47.95.192.141}:${NACOS_PORT:8848}
+        access-key: ${NACOS_ACCESS_KEY:nacos}
+        secret-key: ${NACOS_SECRTE_KEY:nacos}
+        namespace: @nacos.namespace@
+        group: @parent.artifactId@
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        group: ${spring.cloud.nacos.discovery.group}
+        access-key: ${NACOS_ACCESS_KEY:nacos}
+        secret-key: ${NACOS_SECRTE_KEY:nacos}
